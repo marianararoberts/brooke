@@ -9,12 +9,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Make sure modal is hidden by default */
     #welcomeModal {
       display: none;
     }
 
-    /* Modal styles (optional if not already in your CSS) */
     .modal {
       position: fixed;
       top: 0;
@@ -37,54 +35,160 @@
       max-width: 400px;
       font-family: 'Baloo 2', cursive;
     }
+
+    .draggable {
+      cursor: grab;
+    }
   </style>
 </head>
 <body class="adhd-page">
   <a href="index.html" class="back-home">← Back Home</a>
 
-  <!-- Modal -->
   <div id="welcomeModal" class="modal">
     <div class="modal-content">
-      <h2>Welcome to Cleanify! 🧽</h2>
-      <p>This tool is here to help you clean your room — one tiny, doable step at a time. You don’t have to do it all, just start.</p>
-      <button onclick="closeModal()">Let’s Go 💖</button>
+      <h2>Welcome to Cleanify!</h2>
+      <p>This is a tool I made to help you clean your room. Eventually I will be able to refine it exactly how you like.</p>
+      <button onclick="closeModal()">Continue</button>
+    </div>
+  </div>
+
+  <div id="congratsModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <h2>Congratulations!</h2>
+      <p>You cleaned your room! I'm so proud of you <3</p>
+      <button onclick="location.reload()">Yay!</button>
     </div>
   </div>
 
   <div class="container">
-    <h1>ADHD Toolkit 💖</h1>
+    <h1>Cleanify</h1>
 
     <section>
-      <h2>Break Down a Cleaning Task</h2>
-      <input type="text" id="taskInput" placeholder="What feels messy or overwhelming?" />
-      <button onclick="breakDownTask()">Give Me a Tiny Step</button>
-      <ul id="taskList"></ul>
+      <h2>Do you want to split by section or by task?</h2>
+      <button onclick="selectMode('section')">Section</button>
+      <button onclick="selectMode('task')">Task</button>
+    </section>
+
+    <section id="checklistSection" style="display:none;">
+      <h2 id="modeTitle"></h2>
+      <ul id="checklist" class="sortable"></ul>
+      <input type="text" id="newItem" placeholder="Add item"/>
+      <button onclick="addItem()">Add</button>
     </section>
 
     <section>
       <h2>I Need a Boost 🪄</h2>
-      <button onclick="showBoost()">Give Me a Boost</button>
+      <button onclick="playEncouragement()">I need encouragement</button>
+      <button id="overwhelmedBtn" onclick="toggleOverwhelmed()">I'm overwhelmed</button>
       <p id="boostText"></p>
     </section>
   </div>
 
-  <script src="adhd.js"></script>
   <script>
+    const sections = ["Bed", "Makeup Area", "Clothes", "Desk", "Floor"];
+    const tasks = ["Pick up dirty clothes", "Throw out trash", "Make bed"];
+    let currentMode = "section";
+    let overwhelmed = false;
+
     function closeModal() {
       document.getElementById("welcomeModal").style.display = "none";
+    }
+
+    function closeCongratsModal() {
+      document.getElementById("congratsModal").style.display = "none";
+    }
+
+    function selectMode(mode) {
+      currentMode = mode;
+      document.getElementById("checklistSection").style.display = "block";
+      document.getElementById("modeTitle").innerText = mode === 'section' ? 'Room Sections' : 'Tasks';
+      const list = document.getElementById("checklist");
+      list.innerHTML = '';
+      const items = mode === 'section' ? sections : tasks;
+      items.forEach(item => addChecklistItem(item));
+    }
+
+    function addChecklistItem(text) {
+      const list = document.getElementById("checklist");
+      const li = document.createElement("li");
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.onchange = checkCompletion;
+
+      const editableText = document.createElement("span");
+      editableText.contentEditable = true;
+      editableText.innerText = text;
+      editableText.style.marginLeft = "8px";
+
+      li.appendChild(checkbox);
+      li.appendChild(editableText);
+      list.appendChild(li);
+    }
+
+    function addItem() {
+      const input = document.getElementById("newItem");
+      if (input.value.trim() !== "") {
+        addChecklistItem(input.value.trim());
+        input.value = "";
+      }
+    }
+
+    function playEncouragement() {
+      const sounds = ["audio1.mp3", "audio2.mp3"];
+      const audio = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
+      audio.play();
+    }
+
+    function toggleOverwhelmed() {
+      const btn = document.getElementById("overwhelmedBtn");
+      const boost = document.getElementById("boostText");
+      if (!overwhelmed) {
+        boost.innerText = "That’s okay, take a few minutes to reset and come back when you’re ready to start another task";
+        btn.innerText = "I'm ready now";
+      } else {
+        boost.innerText = "";
+        btn.innerText = "I'm overwhelmed";
+      }
+      overwhelmed = !overwhelmed;
+    }
+
+    function checkCompletion() {
+      const checkboxes = document.querySelectorAll("#checklist input[type='checkbox']");
+      const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+      if (allChecked && checkboxes.length > 0) {
+        document.getElementById("congratsModal").style.display = "flex";
+      }
     }
 
     window.addEventListener("DOMContentLoaded", () => {
       const shouldShow = sessionStorage.getItem("showCleanifyModal");
       const modal = document.getElementById("welcomeModal");
-
-      console.log("Session storage value:", shouldShow);
-
       if (shouldShow === "true" && modal) {
         modal.style.display = "flex";
         sessionStorage.removeItem("showCleanifyModal");
       }
     });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  function checkCompletion(event) {
+    if (event.target.checked) {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+    const checkboxes = document.querySelectorAll("#checklist input[type='checkbox']");
+    const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+    if (allChecked && checkboxes.length > 0) {
+      document.getElementById("congratsModal").style.display = "flex";
+    }
+  }
+
+  // When creating checkboxes:
+  checkbox.onchange = (event) => checkCompletion(event);
+</script>
 </body>
 </html>
