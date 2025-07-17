@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brooke Lamb: Tattoo Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+  <style>
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .nav-tabs {
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p,
+      .about p {
+        font-size: 1rem;
+      }
+
+      .about,
+      .gallery {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        max-width: 95%;
+        max-height: 70vh;
+      }
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-tabs li {
+      list-style: none;
+    }
+
+    .nav-tabs a {
+      text-decoration: none;
+    }
+    .slider {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-height: 80vh;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .slider button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 5px 10px;
+      z-index: 2;
+    }
+
+    .slider .prev {
+      left: 10px;
+    }
+
+    .slider .next {
+      right: 10px;
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .image-gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .image-gallery img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Brooke Lamb</div>
+    <ul class="nav-tabs">
+      <li><a href="portfolio.html">Home</a></li>
+      <li><a href="contact.html">Contact Me</a></li>
+      <li>
+        <a href="https://www.instagram.com/brooke.l695" target="_blank" aria-label="Instagram">
+          <i class="fa-brands fa-instagram" style="font-size: 2.8rem;"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="image-gallery">
+      <img src="https://picsum.photos/seed/1/600/800?grayscale" alt="Design 1" onclick="openModal(this.src)">
+      <img src="https://picsum.photos/seed/2/600/800?grayscale" alt="Design 2" onclick="openModal(this.src)">
+      <img src="https://picsum.photos/seed/3/600/800?grayscale" alt="Design 3" onclick="openModal(this.src)">
+      <img src="https://picsum.photos/seed/4/600/800?grayscale" alt="Design 4" onclick="openModal(this.src)">
+      <img src="https://picsum.photos/seed/5/600/800?grayscale" alt="Design 5" onclick="openModal(this.src)">
+      <img src="https://picsum.photos/seed/6/600/800?grayscale" alt="Design 6" onclick="openModal(this.src)">
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Brooke Lamb. All rights reserved.</p>
+  </footer>
+
+  <!-- Modal for images -->
+  <div id="modal" class="modal" onclick="closeModal()">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img">
+  </div>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Modal functions
+    function openModal(src) {
+      document.getElementById("modal").style.display = "block";
+      document.getElementById("modal-img").src = src;
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+
+    function showSlide(n) {
+      slides.forEach((slide, i) => {
+        slide.style.display = i === n ? "block" : "none";
+      });
+    }
+
+    function changeSlide(n) {
+      slideIndex = (slideIndex + n + slides.length) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    // Initialize
+    if (slides.length > 0) showSlide(slideIndex);
+  </script>
+</body>
+</html>

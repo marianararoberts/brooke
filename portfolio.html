@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brooke Lamb: Tattoo Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" />
+  <style>
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .nav-tabs {
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero p,
+      .about p {
+        font-size: 1rem;
+      }
+      .about,
+      .gallery {
+        margin: 0 10px;
+      }
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .modal-content {
+        max-width: 95%;
+        max-height: 70vh;
+      }
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+    }
+    .nav-tabs li {
+      list-style: none;
+      margin-right: 15px;
+    }
+    .nav-tabs a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Slider styles */
+    .slider {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+    .slide {
+      display: none;
+      width: 100%;
+      max-height: 80vh;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .slider button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 5px 10px;
+      z-index: 2;
+    }
+    .slider .prev {
+      left: 10px;
+    }
+    .slider .next {
+      right: 10px;
+    }
+
+    /* Modal (popup) styles */
+    .popup-modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      font-family: 'Baloo 2', cursive;
+    }
+    .popup-content {
+      background-color: #fff0f5;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+    }
+    .popup-content h2 {
+      color: #e75480;
+      margin-bottom: 10px;
+    }
+    .popup-content p {
+      color: #355e3b;
+      margin-bottom: 20px;
+      font-size: 1rem;
+    }
+    .popup-content button {
+      background-color: #a8d5a8;
+      color: #355e3b;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .popup-content button:hover {
+      background-color: #89c891;
+    }
+
+    /* Modal image styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 60px;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 80%;
+      max-height: 80vh;
+    }
+    .modal .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: white;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #tattooModal {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Tattoo Welcome Modal -->
+  <div id="tattooModal" class="popup-modal">
+    <div class="popup-content">
+      <h2>Welcome to your personal Tattoo Portfolio Website!</h2>
+      <p>I made this so that you could get a glimpse of your future profession. I believe in you, not just now, but in everything you can accomplish.</p>
+      <p>Right now, it's just meant to showcase your portfolio, but as time goes on we can work on building this into something more.</p>
+      <button onclick="closeTattooModal()">Continue</button>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="logo">Brooke Lamb</div>
+    <ul class="nav-tabs">
+      <li><a href="designs.html">Full Portfolio</a></li>
+      <li><a href="contact.html">Contact Me</a></li>
+      <li>
+        <a href="https://www.instagram.com/brooke.l695" target="_blank" aria-label="Instagram" rel="noopener noreferrer">
+          <i class="fa-brands fa-instagram" style="font-size: 2.8rem;"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <h1>Tattoo Artist</h1>
+    <p>Custom inkwork & personal storytelling through design.</p>
+  </header>
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <h2>About Me</h2>
+    <p>Hey, I’m Brooke Lamb — a tattoo artist in progress, currently building my portfolio and sharpening my linework. I’m drawn to pieces that are personal, sketchy, emotional, or symbolic. I’m based in [City] and open to apprenticeships, collaborations, and sketch commissions. Let’s create something that lasts.</p>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="gallery" class="gallery">
+    <div class="slider">
+      <button class="prev" onclick="changeSlide(-1)">❮</button>
+      <img class="slide" src="https://picsum.photos/seed/1/600/800?grayscale" alt="Placeholder art 1" />
+      <img class="slide" src="https://picsum.photos/seed/2/600/800?grayscale" alt="Placeholder art 2" />
+      <img class="slide" src="https://picsum.photos/seed/3/600/800?grayscale" alt="Placeholder art 3" />
+      <img class="slide" src="https://picsum.photos/seed/4/600/800?grayscale" alt="Placeholder art 4" />
+      <img class="slide" src="https://picsum.photos/seed/5/600/800?grayscale" alt="Placeholder art 5" />
+      <img class="slide" src="https://picsum.photos/seed/6/600/800?grayscale" alt="Placeholder art 6" />
+      <button class="next" onclick="changeSlide(1)">❯</button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Brooke Lamb. All rights reserved.</p>
+  </footer>
+
+  <!-- Image Modal -->
+  <div id="modal" class="modal" onclick="closeModal()">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img" alt="Expanded artwork" />
+  </div>
+
+  <script>
+    // Show tattoo modal once if sessionStorage flag is set
+    window.addEventListener("DOMContentLoaded", () => {
+      const modal = document.getElementById("tattooModal");
+      const shouldShowModal = sessionStorage.getItem('showTattooModal');
+      if (shouldShowModal === 'true' && modal) {
+        modal.style.display = "flex";
+        sessionStorage.removeItem('showTattooModal');
+      }
+    });
+
+    // Close tattoo modal
+    function closeTattooModal() {
+      document.getElementById("tattooModal").style.display = "none";
+    }
+
+    // Image modal controls
+    function openModal(src) {
+      const modal = document.getElementById("modal");
+      const modalImg = document.getElementById("modal-img");
+      modal.style.display = "block";
+      modalImg.src = src;
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    // Close modal if clicking outside content or on close button
+    document.getElementById("modal").addEventListener("click", (e) => {
+      if (e.target.id === "modal" || e.target.classList.contains("close")) {
+        closeModal();
+      }
+    });
+
+    // Slider functionality
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".slide");
+
+    function showSlide(n) {
+      slides.forEach((slide, i) => {
+        slide.style.display = i === n ? "block" : "none";
+      });
+    }
+
+    function changeSlide(n) {
+      slideIndex = (slideIndex + n + slides.length) % slides.length;
+      showSlide(slideIndex);
+    }
+
+    // Initialize slider
+    if (slides.length > 0) showSlide(slideIndex);
+
+    // Smooth scroll for internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelector(anchor.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

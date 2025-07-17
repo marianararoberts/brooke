@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ADHD Toolkit</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Make sure modal is hidden by default */
+    #welcomeModal {
+      display: none;
+    }
+
+    /* Modal styles (optional if not already in your CSS) */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background-color: #fff0f5;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      max-width: 400px;
+      font-family: 'Baloo 2', cursive;
+    }
+  </style>
+</head>
+<body class="adhd-page">
+  <a href="index.html" class="back-home">← Back Home</a>
+
+  <!-- Modal -->
+  <div id="welcomeModal" class="modal">
+    <div class="modal-content">
+      <h2>Welcome to Cleanify! 🧽</h2>
+      <p>This tool is here to help you clean your room — one tiny, doable step at a time. You don’t have to do it all, just start.</p>
+      <button onclick="closeModal()">Let’s Go 💖</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>ADHD Toolkit 💖</h1>
+
+    <section>
+      <h2>Break Down a Cleaning Task</h2>
+      <input type="text" id="taskInput" placeholder="What feels messy or overwhelming?" />
+      <button onclick="breakDownTask()">Give Me a Tiny Step</button>
+      <ul id="taskList"></ul>
+    </section>
+
+    <section>
+      <h2>I Need a Boost 🪄</h2>
+      <button onclick="showBoost()">Give Me a Boost</button>
+      <p id="boostText"></p>
+    </section>
+  </div>
+
+  <script src="adhd.js"></script>
+  <script>
+    function closeModal() {
+      document.getElementById("welcomeModal").style.display = "none";
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const shouldShow = sessionStorage.getItem("showCleanifyModal");
+      const modal = document.getElementById("welcomeModal");
+
+      console.log("Session storage value:", shouldShow);
+
+      if (shouldShow === "true" && modal) {
+        modal.style.display = "flex";
+        sessionStorage.removeItem("showCleanifyModal");
+      }
+    });
+  </script>
+</body>
+</html>

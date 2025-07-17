@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Brooke Lamb: Tattoo Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css">
+  <style>
+    .contact {
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form label {
+  font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+.contact-form button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #333;
+}
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .nav-tabs {
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p,
+      .about p {
+        font-size: 1rem;
+      }
+
+      .about,
+      .gallery {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        max-width: 95%;
+        max-height: 70vh;
+      }
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-tabs {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-tabs li {
+      list-style: none;
+    }
+
+    .nav-tabs a {
+      text-decoration: none;
+    }
+    .slider {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+      max-height: 80vh;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .slider button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.8);
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      padding: 5px 10px;
+      z-index: 2;
+    }
+
+    .slider .prev {
+      left: 10px;
+    }
+
+    .slider .next {
+      right: 10px;
+    }
+
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .image-gallery img {
+      width: 100%;
+      height: auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .image-gallery img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+    }
+    
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">Brooke Lamb</div>
+    <ul class="nav-tabs">
+      <li><a href="portfolio.html">Home</a></li>
+      <li><a href="designs.html">Full Portfolio</a></li>
+      <li>
+        <a href="https://www.instagram.com/brooke.l695" target="_blank" aria-label="Instagram">
+          <i class="fa-brands fa-instagram" style="font-size: 2.8rem;"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+<section id="contact" class="contact">
+  <h2>Contact Me</h2>
+  <p>If you're interested in an apprenticeship, collaboration, or want to talk about a custom piece, send a message below:</p>
+
+  <form action="https://formspree.io/f/xldlenre" method="POST" class="contact-form" onsubmit="return validateEmail()">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required />
+
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required />
+
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="5" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+  <script>
+  function validateEmail() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim();
+    const emailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+    if (name === "") {
+      alert("Please enter your name.");
+      return false;
+    }
+
+    if (!emailPattern.test(email)) {
+      alert("Please enter a valid email address.");
+      return false;
+    }
+
+    if (message === "") {
+      alert("Please enter a message.");
+      return false;
+    }
+
+    return true; // Allow form to submit
+  }
+</script>
+</section>
+</body>
+</html>

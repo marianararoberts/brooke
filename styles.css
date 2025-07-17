@@ -1,0 +1,239 @@
+/* Fonts & base reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  background-color: #f9f6f3;
+  color: #2c2c2c;
+  line-height: 1.6;
+  max-width: 960px;
+  margin: auto;
+  padding: 20px;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #eaeaea;
+}
+
+.toggle-dark {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: 1px solid #aaa;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: #fff;
+  color: #333;
+  z-index: 1000;
+}
+
+body.dark-mode .toggle-dark {
+  background-color: #333;
+  color: #fff;
+  border-color: #888;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.nav-tabs {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-tabs li a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.nav-tabs li a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Hero */
+.hero {
+  text-align: center;
+  margin: 40px 0 20px 0;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* About */
+.about {
+  margin: 40px 0 60px 0;
+}
+
+.about h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.about p {
+  font-size: 1rem;
+  color: #444;
+}
+
+/* Gallery */
+.gallery {
+  margin-bottom: 60px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.grid img {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.grid img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+/* Contact */
+.contact {
+  margin-bottom: 60px;
+}
+
+.contact h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.contact p {
+  color: #444;
+}
+
+.contact ul {
+  list-style: none;
+  margin-top: 10px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.contact li {
+  display: inline-block;
+}
+
+.contact a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.contact a:hover {
+  color: #000;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #aaa;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.9);
+}
+
+.modal-content {
+  display: block;
+  margin: 60px auto;
+  max-width: 90%;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+body.dark-mode .modal {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+body.dark-mode .modal-content {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+}
+
+body.dark-mode .close {
+  color: #000;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .nav-tabs {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+}

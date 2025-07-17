@@ -1,0 +1,161 @@
+body {
+  margin: 0;
+  font-family: 'Baloo 2';
+  background-color: #fadee9;
+  color: #355e3b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
+}
+
+body.adhd-page {
+  background-color: #e5f5e0; /* light green */
+}
+
+.container {
+  max-width: 600px;
+  padding: 30px;
+  border-radius: 20px;
+  background-color: #fff0f5;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.container {
+  background-color: #fff0f5; /* light pink */
+  border: 2px solid #c1e1c1; /* pastel green border */
+}
+
+h1 {
+  color: #e75480;
+  margin-bottom: 10px;
+}
+
+.buttons {
+  margin-top: 30px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 20px;
+  margin: 10px;
+  background-color: #c1e1c1;
+  color: #355e3b;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: #a8d5a8;
+}
+input[type="text"] {
+  padding: 10px;
+  border: 2px solid #e75480;
+  border-radius: 10px;
+  width: 80%;
+  font-family: 'Baloo 2', cursive;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: #fff0f5;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  max-width: 400px;
+  font-family: 'Baloo 2', cursive;
+}
+
+.modal-content h2 {
+  color: #e75480;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  color: #355e3b;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.modal-content button {
+  background-color: #a8d5a8;
+  color: #355e3b;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.modal-content button:hover {
+  background-color: #89c891;
+}
+
+button {
+  background-color: #e75480;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  margin: 10px 0;
+  border-radius: 10px;
+  font-family: 'Baloo 2', cursive;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #d74370;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  text-align: left;
+}
+
+ul li {
+  background-color: #fff;
+  margin-bottom: 6px;
+  padding: 10px;
+  border-radius: 8px;
+  border-left: 4px solid #c1e1c1;
+}
+
+.back-home {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 1rem;
+  background-color: #c1e1c1;
+  color: #355e3b;
+  padding: 8px 14px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-family: 'Baloo 2', cursive;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: background 0.3s;
+}
+
+.back-home:hover {
+  background-color: #a8d5a8;
+}
