@@ -40,6 +40,11 @@
     .draggable {
       cursor: grab;
     }
+    .button-row {
+      display: flex;
+      gap: 10px; /* space between buttons */
+      align-items: center; /* vertical alignment */
+    }
   </style>
 </head>
 <body class="cleanify-page">
@@ -78,9 +83,17 @@
     </section>
 
     <section>
-      <h2>I Need a Boost 🪄</h2>
-      <button onclick="playEncouragement()">I need encouragement</button>
+      <h2>I Need a Boost</h2>
+      
+      <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+      <button onclick="showEncouragementImage()">I need encouragement</button>
       <button id="overwhelmedBtn" onclick="toggleOverwhelmed()">I'm overwhelmed</button>
+    </div>
+
+      <div id="encouragementImageContainer" style="margin-top: 20px;">
+        <!-- Encouragement images appear here -->
+      </div>
+
       <p id="boostText"></p>
     </section>
   </div>
@@ -134,18 +147,61 @@
         input.value = "";
       }
     }
+      
+    const encouragementImages = [
+  "encouragement.jpg",
+  "encouragement2.jpg",
+  "encouragement3.jpg"
+];
 
-    function playEncouragement() {
-      const sounds = ["audio1.mp3", "audio2.mp3"];
-      const audio = new Audio(sounds[Math.floor(Math.random() * sounds.length)]);
-      audio.play();
-    }
+const encouragementCaptions = [
+  "Clean your room so you can sleep this peacefully <3",
+  "You can do it! One step at a time :)",
+  "I'll play you a song once you're done!"
+];
+
+let encouragementIndex = 0;
+let isImageVisible = false;
+
+function showEncouragementImage() {
+  const container = document.getElementById("encouragementImageContainer");
+
+  if (isImageVisible) {
+    container.innerHTML = "";
+    isImageVisible = false;
+  } else {
+    container.innerHTML = "";
+
+    const caption = document.createElement("p");
+    caption.innerText = encouragementCaptions[encouragementIndex];
+    caption.style.fontWeight = "bold";
+    caption.style.marginBottom = "10px";
+    caption.style.textAlign = "center";
+    caption.style.fontFamily = "'Baloo 2', cursive";
+    caption.style.fontSize = "1.1em";
+
+    const img = document.createElement("img");
+    img.src = encouragementImages[encouragementIndex];
+    img.alt = "Encouragement";
+    img.style.maxWidth = "100%";
+    img.style.borderRadius = "15px";
+    img.style.boxShadow = "0 4px 8px rgba(0,0,0,0.2)";
+    img.style.display = "block";
+    img.style.margin = "0 auto";
+
+    container.appendChild(caption);
+    container.appendChild(img);
+
+    isImageVisible = true;
+    encouragementIndex = (encouragementIndex + 1) % encouragementImages.length;
+  }
+}
 
     function toggleOverwhelmed() {
       const btn = document.getElementById("overwhelmedBtn");
       const boost = document.getElementById("boostText");
       if (!overwhelmed) {
-        boost.innerText = "That’s okay, take a few minutes to reset and come back when you’re ready to start another task";
+        boost.innerText = "That’s okay, take a few minutes to reset and come back when you’re ready to start another task :)";
         btn.innerText = "I'm ready now";
       } else {
         boost.innerText = "";
